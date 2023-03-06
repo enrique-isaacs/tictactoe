@@ -14,7 +14,7 @@ while count > 0:
         print(r)
     
     
-    player_character = "O"
+    player_character = "T"
     board = game_logic.do_move(player_character, board)
     
     for r in board:

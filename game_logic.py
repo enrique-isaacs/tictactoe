@@ -58,11 +58,13 @@ def is_valid_move(move, current_board_state):
     Returns:
         bool: True if player move can be made, else False
     """
-    print("is in validator")
-    ## creates a set of all possible index values on the board
-    board_set = set(index for row in current_board_state for index in row)
-    
-    return int(move) in board_set and current_board_state[int(move)//3][int(move)%3] == 0
+
+    board_dict = board_index_map(current_board_state)
+
+    if move in board_dict.keys(): 
+        if board_dict.get(move) == 0:
+            return True
+    return False
 
 
 
@@ -96,6 +98,8 @@ def board_index_map(original_board):
         for j in range(board_size):
             move_value = str(i * board_size + j + 1)
             move_map[move_value] = original_board[i][j]
+            
+    
     return move_map
 
 
@@ -105,3 +109,14 @@ def do_move(player_character, current_board)->list:
     board = updated_board(move, current_board, player_character)
     return board
 
+
+def game_won(current_board)-> bool:
+    
+    ##
+    
+    return 0
+
+
+def convert_board_to_graph(board):
+    
+    ...
