@@ -8,8 +8,11 @@ def setup_board():
     Returns: None
     
     """
+    board = [[1,2,3],
+             [4,5,6],
+             [7,8,9]]
     
-    return [[0 for _ in range(3)] for _ in range(3)]
+    return board
     
     
 def updated_board(move, board, player_character):
@@ -37,10 +40,10 @@ def updated_board(move, board, player_character):
         "8": (2, 1),
         "9": (2, 2),
     }
-    print("in update")
+
 
     if is_valid_move(move, board):
-        print("Move is valid")
+        
         index = index_map[move]
         board[index[0]][index[1]] = player_character
 
@@ -62,7 +65,7 @@ def is_valid_move(move, current_board_state):
     board_dict = board_index_map(current_board_state)
 
     if move in board_dict.keys(): 
-        if board_dict.get(move) == 0:
+        if board_dict.get(move) != "X" or  board_dict.get(move) != "O":
             return True
     return False
 
@@ -112,11 +115,58 @@ def do_move(player_character, current_board)->list:
 
 def game_won(current_board)-> bool:
     
-    ##
     
-    return 0
-
+    
+    for set_list in graph_variables(current_board):
+        
+        if len(set(set_list)) == 1:
+            return True
+        
+    return False
 
 def convert_board_to_graph(board):
     
-    ...
+    rows = {
+        
+            1 : board[0],
+            2 : board[1],
+            3 : board[2]
+    }
+    
+    cols = {
+        1: [board[0][0], board[1][0], board[2][0]],
+        2: [board[0][1], board[1][1], board[2][1]],
+        3: [board[0][2], board[1][2], board[2][2]]
+    }
+    
+    diagonals = {
+        1 : [board[0][0], board[1][1], board[2][2]],
+        2: [board[2][0], board[1][1], board[0][2]]
+    }
+    
+    board_graph = {
+        "rows" : rows,
+        "cols" : cols,
+        "diagonals" : diagonals
+    }
+    
+    return board_graph
+
+
+def graph_variables(current_board):
+    
+    
+    row_1 = convert_board_to_graph(current_board)["rows"][1]
+    row_2 = convert_board_to_graph(current_board)["rows"][2]
+    row_3 = convert_board_to_graph(current_board)["rows"][3]
+    
+    col_1 = convert_board_to_graph(current_board)["cols"][1]
+    col_2 = convert_board_to_graph(current_board)["cols"][2]
+    col_3 = convert_board_to_graph(current_board)["cols"][3]
+    
+    diagonal_top = convert_board_to_graph(current_board)["diagonals"][1]
+    diagonal_bottom = convert_board_to_graph(current_board)["cols"][2]
+    
+    
+    return [row_1,row_2, row_3, col_1, col_2, col_3, diagonal_top, diagonal_bottom]
+    
