@@ -17,8 +17,60 @@ screen.blit(board_image, (150,200))
 os.system("clear")
 
 def add_move(click_position: tuple, board):
+    ## updates screen with new move
+    ## also updates the game's board
     
     ...
+    
+def block_ranges():
+    
+    return {
+        "A" : {
+            "x" : range(150, 246),
+            "y" : range(200, 296)
+        }
+        ,
+        "B" : {
+            "x" : range(264, 340),
+            "y" : range(200, 296)
+        }
+        ,
+        "C" : {
+            "x" : range(360, 446),
+            "y" : range(200, 296)
+        }
+        ,
+        "D" : {
+            "x" : range(150, 246),
+            "y" : range(317, 390)
+        }
+        ,
+        "E" : {
+            "x" : range(264, 340),
+            "y" : range(317, 390)
+        }
+        ,
+        "F" : {
+            "x" : range(360, 446),
+            "y" : range(317, 390)
+        }
+        ,
+        "G" : {
+            "x" : range(150, 246),
+            "y" : range(413, 500)
+        }
+        ,
+        "H" : {
+            "x" : range(264, 340),
+            "y" : range(413, 500)
+        }
+        ,
+        "I" : {
+            "x" : range(150, 246),
+            "y" : range(413, 500)
+        }
+        
+    }
 
 def main():
     
