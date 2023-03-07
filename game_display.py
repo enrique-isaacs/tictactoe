@@ -6,14 +6,26 @@ pygame.init()
 
 HEIGHT, WIDTH = 600,600
 FPS = 60
+BG_COLORS = {
+    "White" : (255,255,255),
+    "Black" : (0,0,0),
+    "WhiteSmoke" : (245,245,245),
+    "Silver" : (192,192,192)
+}
 
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
+screen.fill(BG_COLORS["Black"])
 
 pygame.display.set_caption("Tic-tac-toe")
 
 board_image = pygame.transform.scale(pygame.image.load("images/grid3x3.png"), (300,300))
+o_image = pygame.transform.scale(pygame.image.load("images/letter_o.png"), (50,50))
+# x_image = pygame.transform.scale(pygame.image.load("images/letter_x.png"), (50,50))
 
+# screen.blit(board_image, (150,200))
 screen.blit(board_image, (150,200))
+screen.blit(o_image, (160, 210))
+# screen.blit(x_image, (270, 210))
 os.system("clear")
 
 def add_move(click_position: tuple, board):
