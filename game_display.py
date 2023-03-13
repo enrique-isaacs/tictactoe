@@ -18,13 +18,16 @@ screen.fill(BG_COLORS["Black"])
 
 pygame.display.set_caption("Tic-tac-toe")
 
+BG_IMAGE = pygame.image.load("images/bg_pic.jpg")
+screen.blit(BG_IMAGE, (20,0))
 board_image = pygame.transform.scale(pygame.image.load("images/grid3x3.png"), (300,300))
 o_image = pygame.transform.scale(pygame.image.load("images/letter_o.png"), (50,50))
 # x_image = pygame.transform.scale(pygame.image.load("images/letter_x.png"), (50,50))
 
 # screen.blit(board_image, (150,200))
+
 screen.blit(board_image, (150,200))
-screen.blit(o_image, (160, 210))
+screen.blit(o_image, (175, 220))
 # screen.blit(x_image, (270, 210))
 os.system("clear")
 
@@ -33,6 +36,25 @@ def add_move(click_position: tuple, board):
     ## also updates the game's board
     
     ...
+    
+
+def img_positions():
+    
+    ...
+    
+def get_block_position():
+    
+    mouse_position = {
+        "x": pygame.mouse.get_pos()[0],
+        "y": pygame.mouse.get_pos()[1]
+    }
+    
+    for cells, coordinates in block_ranges().items():
+       
+        if mouse_position.get("x") in coordinates["x"] and mouse_position.get("y") in coordinates["y"]:
+            return cells
+    
+    
     
 def block_ranges():
     
@@ -98,8 +120,9 @@ def main():
                 quit()
 
             if event.type == pygame.MOUSEBUTTONDOWN:
-                mouse_position = pygame.mouse.get_pos()
-                print("Mouse clicked at:", mouse_position)
+                key = get_block_position()
+                print(key)
+                
 
         # Draw things on the screen
         # ...
