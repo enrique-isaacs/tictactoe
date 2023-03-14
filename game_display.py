@@ -18,29 +18,40 @@ screen.fill(BG_COLORS["Black"])
 
 pygame.display.set_caption("Tic-tac-toe")
 
-BG_IMAGE = pygame.image.load("images/bg_pic.jpg")
-screen.blit(BG_IMAGE, (20,0))
-board_image = pygame.transform.scale(pygame.image.load("images/grid3x3.png"), (300,300))
+BG_IMAGE = pygame.transform.scale(pygame.image.load("images/bg_pic.jpg"), (WIDTH-50, HEIGHT-50))
+board_image = pygame.transform.scale(pygame.image.load("images/3x3-grid.png"), (300,300))
 o_image = pygame.transform.scale(pygame.image.load("images/letter_o.png"), (50,50))
-# x_image = pygame.transform.scale(pygame.image.load("images/letter_x.png"), (50,50))
+x_image = pygame.transform.scale(pygame.image.load("images/letter_x.png"), (50,50))
 
-# screen.blit(board_image, (150,200))
 
-screen.blit(board_image, (150,200))
-screen.blit(o_image, (175, 220))
-# screen.blit(x_image, (270, 210))
 os.system("clear")
 
-def add_move(click_position: tuple, board):
+def add_move(board):
     ## updates screen with new move
     ## also updates the game's board
     
-    ...
+    cell_name = get_block_position()
+    print(cell_name)
+    position = img_positions().get(cell_name)
+    print(position)
+    if position is not None:
+        add_image_to_screen("O", position)
+    pygame.display.update()
     
 
 def img_positions():
     
-    ...
+    return {
+        "A" : (175, 230),
+        "B" : (275, 230),
+        "C" : (375, 230),
+        "D" : (175, 325),
+        "E" : (275, 325),
+        "F" : (375, 325),
+        "G" : (175, 425), 
+        "H" : (275, 425),
+        "I" : (375, 425)
+    }
     
 def get_block_position():
     
@@ -54,7 +65,12 @@ def get_block_position():
         if mouse_position.get("x") in coordinates["x"] and mouse_position.get("y") in coordinates["y"]:
             return cells
     
+def add_image_to_screen(character, cell):
+    print("in add image func")
+
     
+    screen.blit(o_image, cell)
+    print("under blit")
     
 def block_ranges():
     
@@ -100,19 +116,29 @@ def block_ranges():
         }
         ,
         "I" : {
-            "x" : range(150, 246),
+            "x" : range(364, 440),
             "y" : range(413, 500)
         }
         
     }
+    
+
+# def draw_screen():
+#     # screen.blit(BG_IMAGE, (0,0))
+#     screen.blit(board_image, (150,200))
+#     pygame.display.update()
+    
 
 def main():
     
     clock = pygame.time.Clock()
     board = gl.setup_board()
+    
 
     while True:
         clock.tick(FPS)
+        screen.blit(board_image, (150,200))
+        
         
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -120,15 +146,14 @@ def main():
                 quit()
 
             if event.type == pygame.MOUSEBUTTONDOWN:
-                key = get_block_position()
-                print(key)
+                add_move(board)
                 
 
         # Draw things on the screen
         # ...
 
         # Update the screen
-        pygame.display.update()
+        
         
         
 if __name__ == '__main__':
