@@ -15,7 +15,7 @@ def setup_board():
     return board
     
     
-def updated_board(move, board, player_character):
+def updated_board(cell, board, player_character):
     """_Updates the board with new player moves_
 
     Args:
@@ -27,7 +27,38 @@ def updated_board(move, board, player_character):
         
     Returns:
         List of lists containing Strings of X's or O's
+        
     """
+    
+    move = ''
+    match cell:
+        
+        case "A":
+            move = 1
+            
+        case "B":
+            move = 2
+            
+        case "C":
+            move = 3
+        
+        case "D":
+            move = 4
+            
+        case "E":
+            move = 5
+            
+        case "F":
+            move = 6
+        
+        case "G":
+            move = 7
+            
+        case "H":
+            move = 8
+            
+        case "I":
+            move = 9
     
     index_map = {
         "1": (0, 0),
@@ -46,10 +77,10 @@ def updated_board(move, board, player_character):
         
         index = index_map[move]
         board[index[0]][index[1]] = player_character
-
-    return board
-
-
+        return board, True
+    
+    return board, False
+ 
 
 def is_valid_move(move, current_board_state):
     """ Checks if a player can make a move
@@ -110,7 +141,7 @@ def do_move(player_character, current_board, move)->list:
     
     # move will be the cell eg. A, B or C
     # move = input("-> ")
-    board = updated_board(move, current_board, player_character)
+    board = updated_board(move, current_board, player_character) ## handle boolean setup in updatedboard
     return board
 
 

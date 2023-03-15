@@ -124,18 +124,29 @@ def block_ranges():
 #     # screen.blit(BG_IMAGE, (0,0))
 #     screen.blit(board_image, (150,200))
 #     pygame.display.update()
+
+def get_character(characters, character_counter):
+    if character_counter%2==0:
+            character = characters[0]
+    elif character_counter%2!=0:
+        character = characters[1]
     
+    return character
 
 def main():
     
     clock = pygame.time.Clock()
     board = gl.setup_board()
     screen.blit(board_image, (150,200))
+    character_counter = 1
+    characters = ["X", "O"]
     
-    
+    character = ''
 
     while True:
         clock.tick(FPS)
+        character = get_character(characters, character_counter)
+        
         
         
         
