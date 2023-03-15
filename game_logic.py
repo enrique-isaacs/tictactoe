@@ -106,9 +106,10 @@ def board_index_map(original_board):
     return move_map
 
 
-def do_move(player_character, current_board)->list:
+def do_move(player_character, current_board, move)->list:
     
-    move = input("-> ")
+    # move will be the cell eg. A, B or C
+    # move = input("-> ")
     board = updated_board(move, current_board, player_character)
     return board
 

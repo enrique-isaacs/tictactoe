@@ -65,8 +65,6 @@ def get_block_position():
             return cells
     
 def add_image_to_screen(character, cell):
-    print("in add image func")
-
     
     screen.blit(o_image, cell)
     print("under blit")
