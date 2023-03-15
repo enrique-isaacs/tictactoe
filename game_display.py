@@ -31,12 +31,11 @@ def add_move(board):
     ## also updates the game's board
     
     cell_name = get_block_position()
-    print(cell_name)
     position = img_positions().get(cell_name)
-    print(position)
+
     if position is not None:
         add_image_to_screen("O", position)
-    pygame.display.update()
+    
     
 
 def img_positions():
@@ -133,11 +132,13 @@ def main():
     
     clock = pygame.time.Clock()
     board = gl.setup_board()
+    screen.blit(board_image, (150,200))
+    
     
 
     while True:
         clock.tick(FPS)
-        screen.blit(board_image, (150,200))
+        
         
         
         for event in pygame.event.get():
@@ -153,6 +154,7 @@ def main():
         # ...
 
         # Update the screen
+        pygame.display.update()
         
         
         
