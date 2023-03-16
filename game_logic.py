@@ -16,8 +16,8 @@ def setup_board():
     
     
 def updated_board(cell, board, player_character):
+    
     """_Updates the board with new player moves_
-
     Args:
         board (list): A list of lists containing 0's or O's and X's
         
@@ -27,38 +27,37 @@ def updated_board(cell, board, player_character):
         
     Returns:
         List of lists containing Strings of X's or O's
-        
     """
     
     move = ''
     match cell:
         
         case "A":
-            move = 1
+            move = "1"
             
         case "B":
-            move = 2
+            move = "2"
             
         case "C":
-            move = 3
+            move = "3"
         
         case "D":
-            move = 4
+            move = "4"
             
         case "E":
-            move = 5
+            move = "5"
             
         case "F":
-            move = 6
+            move = "6"
         
         case "G":
-            move = 7
+            move = "7"
             
         case "H":
-            move = 8
+            move = "8"
             
         case "I":
-            move = 9
+            move = "9"
     
     index_map = {
         "1": (0, 0),
@@ -96,7 +95,7 @@ def is_valid_move(move, current_board_state):
     board_dict = board_index_map(current_board_state)
 
     if move in board_dict.keys(): 
-        if board_dict.get(move) != "X" or  board_dict.get(move) != "O":
+        if board_dict.get(move) != "X" or board_dict.get(move) != "O":
             return True
     return False
 
@@ -138,17 +137,20 @@ def board_index_map(original_board):
 
 
 def do_move(player_character, current_board, move)->list:
+    print("in do move")
     
-    # move will be the cell eg. A, B or C
-    # move = input("-> ")
-    board = updated_board(move, current_board, player_character) ## handle boolean setup in updatedboard
-    return board
+    board, bool_check = updated_board(move, current_board, player_character)
+    print(bool_check)
+    for r in board:
+        print(r)
+    if bool_check:
+        return board
+    return []
 
 
 def game_won(current_board)-> bool:
     
-    
-    
+
     for set_list in graph_variables(current_board):
         
         if len(set(set_list)) == 1:
@@ -197,8 +199,7 @@ def graph_variables(current_board):
     col_3 = convert_board_to_graph(current_board)["cols"][3]
     
     diagonal_top = convert_board_to_graph(current_board)["diagonals"][1]
-    diagonal_bottom = convert_board_to_graph(current_board)["cols"][2]
+    diagonal_bottom = convert_board_to_graph(current_board)["diagonals"][2]
     
     
     return [row_1,row_2, row_3, col_1, col_2, col_3, diagonal_top, diagonal_bottom]
-    

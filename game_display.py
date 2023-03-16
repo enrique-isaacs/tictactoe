@@ -1,6 +1,7 @@
 import pygame
 import os
 import game_logic as gl
+import time
 
 pygame.init()
 
@@ -26,16 +27,28 @@ x_image = pygame.transform.scale(pygame.image.load("images/letter_x.png"), (50,5
 
 os.system("clear")
 
-def add_move(board):
+def add_move(board, character):
     ## updates screen with new move
     ## also updates the game's board
     
     cell_name = get_block_position()
     position = img_positions().get(cell_name)
+    updated = board
+    print("In add move:")
+    for r in updated:
+        print(r)
 
     if position is not None:
-        add_image_to_screen("O", position)
+        add_image_to_screen(character, position)
+        
+        updated = gl.do_move(character, board, cell_name)
+        print("In Position")
+        print(updated)
+        if board != []:
+            return updated
+        return board
     
+    return board
     
 
 def img_positions():
@@ -52,6 +65,7 @@ def img_positions():
         "I" : (375, 425)
     }
     
+
 def get_block_position():
     
     mouse_position = {
@@ -63,12 +77,20 @@ def get_block_position():
        
         if mouse_position.get("x") in coordinates["x"] and mouse_position.get("y") in coordinates["y"]:
             return cells
+ 
     
 def add_image_to_screen(character, cell):
     
-    screen.blit(o_image, cell)
-    print("under blit")
+    image = ''
     
+    if character == "X":
+        image = x_image
+    elif character == "O":
+        image = o_image
+    
+    screen.blit(image, cell)
+  
+  
 def block_ranges():
     
     return {
@@ -120,10 +142,6 @@ def block_ranges():
     }
     
 
-# def draw_screen():
-#     # screen.blit(BG_IMAGE, (0,0))
-#     screen.blit(board_image, (150,200))
-#     pygame.display.update()
 
 def get_character(characters, character_counter):
     if character_counter%2==0:
@@ -137,8 +155,10 @@ def main():
     
     clock = pygame.time.Clock()
     board = gl.setup_board()
+    for r in board:
+        print(r)
     screen.blit(board_image, (150,200))
-    character_counter = 1
+    character_counter = 0
     characters = ["X", "O"]
     
     character = ''
@@ -146,26 +166,31 @@ def main():
     while True:
         clock.tick(FPS)
         character = get_character(characters, character_counter)
+        print(f"Char count: {character_counter}")
         
-        
-        
-        
+
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
                 quit()
 
             if event.type == pygame.MOUSEBUTTONDOWN:
-                add_move(board)
+                character_counter+=1
+                board = add_move(board, character)
+                print(f"Char count @after: {character_counter}")
                 
-
-        # Draw things on the screen
-        # ...
-
+                pygame.display.update()
+                
+        
+                
+        if gl.game_won(board):
+            print(f"Player: {character} won!!")
+            pygame.quit()
+            quit()
         # Update the screen
         pygame.display.update()
-        
-        
+
+
         
 if __name__ == '__main__':
     main()
