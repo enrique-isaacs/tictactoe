@@ -1,7 +1,7 @@
 import pygame
 import os
 import game_logic as gl
-import time
+# import time
 
 pygame.init()
 
@@ -40,10 +40,7 @@ def add_move(board, character):
 
     if position is not None:
         add_image_to_screen(character, position)
-        
         updated = gl.do_move(character, board, cell_name)
-        print("In Position")
-        print(updated)
         if board != []:
             return updated
         return board
